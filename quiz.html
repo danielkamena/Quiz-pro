@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quiz HTML Chic - Échec immédiat</title>
+<style>
+  /* Reset */
+  * {
+    box-sizing: border-box;
+    margin: 0; padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body {
+    background: linear-gradient(135deg, #4e54c8, #8f94fb);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #fff;
+  }
+  #quiz-container {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    max-width: 600px;
+    width: 100%;
+    padding: 30px 40px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  #level-select {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  #level-select button {
+    background: #fff;
+    color: #4e54c8;
+    border: none;
+    padding: 12px 25px;
+    margin: 0 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255,255,255,0.4);
+  }
+  #level-select button:hover {
+    background: #8f94fb;
+    color: #fff;
+
+    box-shadow: 0 6px 18px rgba(143,148,251,0.8);
+  }
+  #question-container {
+    flex-grow: 1;
+    display: none;
+    flex-direction: column;
+  }
+  #question {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+    min-height: 70px;
+  }
+  .answers {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+  .answers li {
+    background: rgba(218, 14, 14, 0.2);
+    font-weight: bold;
+    padding: 12px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    user-select: none;
+    font-size: 1rem;
+  }
+  .answers li:hover {
+    background: rgba(255,255,255,0.4);
+  }
+  .answers li.selected {
+    background: #f39c12;
+    color: #fff;
+    font-weight: bold;
+  }
+  #controls {
+    text-align: center;
+  }
+  #next-btn, #restart-btn {
+    background: #f39c12;
+    border: none;
+    padding: 12px 35px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(243,156,18,0.7);
+    transition: 0.3s ease;
+  }
+  #next-btn:disabled {
+    background: #be0606;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  #next-btn:hover:not(:disabled),
+  #restart-btn:hover {
+    background: #d17d06;
+    box-shadow: 0 8px 20px rgba(209,125,6,0.9);
+  }
+  #score-container {
+    display: none;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-top: 20px;
+  }
+  @media (max-width: 480px) {
+    #quiz-container {
+      padding: 20px 25px;
+    }
+    #level-select button {
+      margin: 8px 6px;
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+    #next-btn, #restart-btn {
+      padding: 10px 25px;
+      font-size: 14px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div id="quiz-container">
+  <h1>Quiz HTML - Choisis ton niveau</h1>
+
+  <div id="level-select">
+    <button data-level="easy">Facile</button>
+    <button data-level="medium">Moyen</button>
+    <button data-level="hard">Difficile</button>
+  </div>
+
+  <div id="question-container">
+    <div id="question"></div>
+    <ul class="answers"></ul>
+    <div id="controls">
+      <button id="next-btn" disabled>Suivant</button>
+    </div>
+  </div>
+
+  <div id="score-container"></div>
+  <div id="restart-container" style="text-align:center; margin-top:20px; display:none;">
+    <button id="restart-btn">Recommencer</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

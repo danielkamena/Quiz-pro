@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz Pro - Accueil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #001f3f, #005f99);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      width: 100%;
+      background-color: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    header h1 {
+      margin: 0;
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 2px;
+      color: #fca311;
+    }
+    nav {
+      position: relative;
+    }
+    ul.nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+    ul.nav-links li a {
+      color: #fca311;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 16px;
+    }
+    ul.nav-links li a:hover {
+      color: #ffd166;
+    }
+    /* Burger menu */
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .burger div {
+      width: 25px;
+      height: 3px;
+      background-color: #fca311;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      ul.nav-links {
+        flex-direction: column;
+        background-color: rgba(0,0,0,0.85);
+        position: fixed;
+        top: 60px;
+        right: -100%;
+        width: 60%;
+        height: 100vh;
+        padding-top: 40px;
+        gap: 20px;
+        transition: right 0.3s ease;
+        border-radius: 0 0 0 15px;
+      }
+      ul.nav-links.active {
+        right: 0;
+      }
+      .burger {
+        display: flex;
+      }
+    }
+
+    main {
+      max-width: 900px;
+      width: 90%;
+      padding: 30px 0 60px;
+      text-align: center;
+    }
+    main h2 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      letter-spacing: 1.5px;
+      color: #ffd166;
+    }
+    main p {
+      font-size: 18px;
+      margin-bottom: 35px;
+      line-height: 1.5;
+      color: #d4d4d8;
+    }
+    /* Carrousel */
+    .carousel {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto 50px;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    }
+    .carousel img {
+      width: 100%;
+      display: none;
+      object-fit: cover;
+      height: 400px;
+    }
+    .carousel img.active {
+      display: block;
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    /* Buttons carousel */
+    .carousel-buttons {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 20px;
+      pointer-events: none;
+    }
+    .carousel-buttons button {
+      pointer-events: all;
+      background: rgba(252, 163, 17, 0.8);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      color: #fff;
+      font-size: 22px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .carousel-buttons button:hover {
+      background: #ffbe3c;
+    }
+    /* Bouton vers quiz */
+    .start-quiz-btn {
+      background: #fca311;
+      color: #001f3f;
+      padding: 18px 35px;
+      border: none;
+      border-radius: 30px;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(252,163,17,0.7);
+      transition: background 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .start-quiz-btn:hover {
+      background: #ffbe3c;
+    }
+
+    /* Section À propos */
+    section#about {
+      max-width: 900px;
+      width: 90%;
+      background-color: rgba(252, 163, 17, 0.15);
+      border-radius: 15px;
+      padding: 30px 25px;
+      margin-bottom: 50px;
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(252,163,17,0.3);
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+    }
+    section#about h2 {
+      color: #fca311;
+      font-size: 32px;
+      width: 100%;
+      margin-bottom: 20px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+    }
+    section#about p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #fff;
+      max-width: 600px;
+      margin: 0;
+    }
+    /* Photo dans à propos */
+    .about-photo {
+      flex-shrink: 0;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 3px solid #fca311;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(252,163,17,0.8);
+      background-color: #fff;
+    }
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      section#about {
+        flex-direction: column;
+        padding: 20px 15px;
+      }
+      .about-photo {
+        width: 130px;
+        height: 130px;
+        margin-bottom: 20px;
+      }
+      main h2 {
+        font-size: 30px;
+      }
+      main p {
+        font-size: 16px;
+        margin-bottom: 25px;
+      }
+      .start-quiz-btn {
+        padding: 14px 30px;
+        font-size: 18px;
+      }
+    }
+    @media (max-width: 480px) {
+      main h2, section#about h2 {
+        font-size: 28px;
+      }
+      main p, section#about p {
+        font-size: 16px;
+      }
+      .start-quiz-btn {
+        padding: 14px 25px;
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Quiz Pro</h1>
+    <nav>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="burger" id="burger" aria-label="Menu" aria-expanded="false" role="button" tabindex="0">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Bienvenue sur Quiz Pro</h2>
+    <p>Teste tes connaissances sur plusieurs niveaux et améliore-toi chaque jour. Prêt à relever le défi ?</p>
+
+    <div class="carousel" aria-label="Carrousel d'images">
+      <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80" alt="Image de quiz 1" class="active" />
+      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80" alt="Image de quiz 2" />
+      <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=900&q=80" alt="Image de quiz 3" />
+    </div>
+
+    <!-- Section À propos déplacée ici, avant le bouton -->
+    <section id="about" tabindex="0" aria-label="À propos de Quiz Pro">
+      <h2>À propos de Quiz Pro</h2>
+      <div class="about-photo" aria-label="Photo de Daniel Kamena">
+        <!-- Remplace le src ci-dessous par le chemin vers ta photo -->
+        <img src="img k/IMG-20241204-WA0034.jpg" alt="Photo de Daniel Kamena" />
+      </div>
+      <div>
+        <p>Quiz Pro a été conçu pour t’aider à apprendre et à tester tes connaissances en HTML de manière simple et ludique. Que tu sois débutant ou avancé, notre plateforme te propose des défis adaptés à ton niveau.</p>
+        <p><em>Dédicace spéciale à <strong>Daniel Kamena</strong>, pour son inspiration et son soutien.</em></p>
+      </div>
+    </section>
+
+    <a href="quiz.html" class="start-quiz-btn" aria-label="Commencer le quiz">Commencer le Quiz</a>
+  </main>
+
+  <script>
+    // Burger menu toggle
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('nav-links');
+
+    burger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      const expanded = burger.getAttribute('aria-expanded') === 'true' || false;
+      burger.setAttribute('aria-expanded', !expanded);
+    });
+
+    burger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        burger.click();
+      }
+    });
+
+    // Simple carousel JS
+    const carouselImages = document.querySelectorAll('.carousel img');
+    let currentIndex = 0;
+
+    function showImage(index) {
+      carouselImages.forEach((img, i) => {
+        img.classList.toggle('active', i === index);
+      });
+    }
+
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % carouselImages.length;
+      showImage(currentIndex);
+    }, 4000);
+  </script>
+</body>
+</html>
